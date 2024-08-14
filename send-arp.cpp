@@ -141,8 +141,9 @@ int main(int argc, char* argv[]) {
 
     // 입력된 IP 쌍에 대해 ARP 스푸핑을 수행하는 루프
     for (int i = 2; i < argc; i += 2) {
-        Ip sender_ip = Ip(argv[i]);  // 첫 번째 IP: 공격 대상 (발신자)
-        Ip target_ip = Ip(argv[i + 1]);  // 두 번째 IP: 스푸핑할 대상 (목표)
+        Ip sender_ip = Ip(htonl(inet_addr(argv[i])));  // 첫 번째 IP: 공격 대상 (발신자)
+        Ip target_ip = Ip(htonl(inet_addr(argv[i + 1])));  // 두 번째 IP: 스푸핑할 대상 (목표)
+
 
         Mac sender_mac = get_mac_from_ip(handle, dev, sender_ip);  // 발신자의 MAC 주소 얻기
 
